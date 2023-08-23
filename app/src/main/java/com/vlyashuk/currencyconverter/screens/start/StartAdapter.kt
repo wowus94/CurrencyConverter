@@ -2,29 +2,31 @@ package com.vlyashuk.currencyconverter.screens.start
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.vlyashuk.currencyconverter.R
+import com.vlyashuk.currencyconverter.databinding.ItemMoneyLayoutBinding
+import com.vlyashuk.currencyconverter.model.Data
 import com.vlyashuk.currencyconverter.model.Valute
 
 class StartAdapter : RecyclerView.Adapter<StartAdapter.StartViewHolder>() {
 
-    var listStart = emptyList<Valute>()
+    var listStart = listOf<Data>()
 
-    class StartViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class StartViewHolder(val binding: ItemMoneyLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_money_layout, parent, false)
-        return StartViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemMoneyLayoutBinding.inflate(inflater, parent, false)
+        return StartViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
-        val item = listStart[position]
-        with(holder.itemView) {
-            findViewById<TextView>(R.id.item_name).text = item.USD.Name
+        val money = listStart[position]
+        with(holder.binding) {
+            holder.itemView.tag = money
+            itemNameValue.text = money.Valute.USD.Name
+            itemSaleValue.text = money.Valute.USD.Value.toString()
         }
     }
 
@@ -33,7 +35,7 @@ class StartAdapter : RecyclerView.Adapter<StartAdapter.StartViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<Valute>) {
+    fun setList(list: List<Data>) {
         listStart = list
         notifyDataSetChanged()
     }

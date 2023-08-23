@@ -1,8 +1,9 @@
 package com.vlyashuk.currencyconverter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.vlyashuk.currencyconverter.screens.root.RootFragment
+import com.vlyashuk.currencyconverter.screens.splash.SplashFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,8 +11,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host, RootFragment()).commit()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.nav_host, RootFragment())
+                .commit()
         }
     }
 }
